@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DiceRollApplication</string>
+    <string-array name="dice_types">
+        <item>Basic size Die</item>
+        <item>Ten sided Die</item>
+        <item>True Ten sided Die</item>
+    </string-array>
 </resources>
