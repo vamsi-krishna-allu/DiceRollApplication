@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isOneRollTriggered = false;
     boolean isBasicDie = true;
     TextView previousValues;
+    TextView previousValuesLabel;
     SharedPreferences sharedPreferences;
     Button clearButton;
     Spinner spinner;
@@ -61,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
                 // update the change value based on user selection from spinner
                 selectedType = i;
                 // update the selected value in shared preferences
-                SharedPreferences.Editor myEdit = sharedPreferences.edit();
-                myEdit.putInt("selection", selectedType);
-                myEdit.commit();
+                SharedPreferences.Editor sharedPreferenceEditor = sharedPreferences.edit();
+                sharedPreferenceEditor.putInt("selection", selectedType);
+                sharedPreferenceEditor.commit();
             }
 
             @Override
@@ -77,19 +78,27 @@ public class MainActivity extends AppCompatActivity {
         buttonOnce.setOnClickListener(this::rollOnce);
         buttonTwice.setOnClickListener(this::rollTwice);
         clearButton.setOnClickListener(this::clearAll);
+
         switchToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // toggle between custom and default die based on switch toggle
             if (isChecked) {
                 isBasicDie = false;
+                previousValuesLabel.setVisibility(View.VISIBLE);
+                previousValues.setVisibility(View.VISIBLE);
                 spinner.setVisibility(View.INVISIBLE);
                 dieSelectionTextView.setText(R.string.custom_die_selected);
                 diceSize.setVisibility(View.VISIBLE);
             } else {
                 isBasicDie = true;
+                previousValuesLabel.setVisibility(View.INVISIBLE);
+                previousValues.setVisibility(View.INVISIBLE);
                 diceSize.setVisibility(View.INVISIBLE);
                 dieSelectionTextView.setText(R.string.basic_die_selected);
                 spinner.setVisibility(View.VISIBLE);
             }
+            SharedPreferences.Editor sharedPreferenceEditor = sharedPreferences.edit();
+            sharedPreferenceEditor.putBoolean("dieMode", isChecked);
+            sharedPreferenceEditor.commit();
         });
 
         updateDefaultVisibilityStatus();
@@ -106,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         resultTextView2ForTwoRoll.setVisibility(View.INVISIBLE);
         diceSize.setVisibility(View.INVISIBLE);
         spinner.setVisibility(View.VISIBLE);
+        previousValuesLabel.setVisibility(View.INVISIBLE);
+        previousValues.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -116,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setSelection(sharedPreferences.getInt("selection", 0));
         previousValues.setText(sharedPreferences.getString("previousValues",""));
         diceSize.setText(sharedPreferences.getString("currentEnteredValue","0"));
+        switchToggle.setChecked(sharedPreferences.getBoolean("dieMode", false));
     }
 
     /**
@@ -126,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dice_types, R.layout.spinner_data);
         adapter.setDropDownViewResource(R.layout.spinner_data);
         spinner.setAdapter(adapter);
+        previousValuesLabel = findViewById(R.id.previousValueLabel);
         previousValues = findViewById(R.id.previousValueTextView);
         previousValues.setMovementMethod(new ScrollingMovementMethod());
         diceImage = (ImageView) findViewById(R.id.imageView);
@@ -164,25 +177,15 @@ public class MainActivity extends AppCompatActivity {
                 // Update the visibility of result text views and previous values text view at the end of animation
                 if(isOneRollTriggered){
                     resultTextView.setVisibility(View.VISIBLE);
-                    if(previousValues.getText().toString().isEmpty()){
-                        previousValues.setText(String.format("%s", resultTextView.getText().toString()));
-                    }else{
-                        previousValues.setText(String.format("%s,%s", previousValues.getText(), resultTextView.getText().toString()));
-                    }
                 }else{
                     resultTextView1ForTwoRoll.setVisibility(View.VISIBLE);
                     resultTextView2ForTwoRoll.setVisibility(View.VISIBLE);
-                    if(previousValues.getText().toString().isEmpty()){
-                        previousValues.setText(String.format("[%s,%s]", resultTextView1ForTwoRoll.getText().toString(), resultTextView2ForTwoRoll.getText().toString()));
-                    }else{
-                        previousValues.setText(String.format("%s, [%s,%s]", previousValues.getText(), resultTextView1ForTwoRoll.getText().toString(), resultTextView2ForTwoRoll.getText().toString()));
-                    }
                 }
                 // Update the shared preferences with the die roll results
-                SharedPreferences.Editor myEdit = sharedPreferences.edit();
-                myEdit.putString("previousValues", previousValues.getText().toString());
-                myEdit.putString("currentEnteredValue", diceSize.getText().toString());
-                myEdit.commit();
+                SharedPreferences.Editor sharedPreferenceEditor = sharedPreferences.edit();
+                sharedPreferenceEditor.putString("previousValues", previousValues.getText().toString());
+                sharedPreferenceEditor.putString("currentEnteredValue", diceSize.getText().toString());
+                sharedPreferenceEditor.commit();
 
             }
 
@@ -204,11 +207,13 @@ public class MainActivity extends AppCompatActivity {
         resultTextView.setText("0");
         resultTextView1ForTwoRoll.setText("0");
         resultTextView2ForTwoRoll.setText("0");
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-        myEdit.putString("previousValues", previousValues.getText().toString());
-        myEdit.putString("currentEnteredValue", diceSize.getText().toString());
-        myEdit.putInt("selection", 0);
-        myEdit.commit();
+        switchToggle.setChecked(false);
+        SharedPreferences.Editor sharedPreferenceEditor = sharedPreferences.edit();
+        sharedPreferenceEditor.putString("previousValues", previousValues.getText().toString());
+        sharedPreferenceEditor.putString("currentEnteredValue", diceSize.getText().toString());
+        sharedPreferenceEditor.putInt("selection", 0);
+        sharedPreferenceEditor.putBoolean("dieMode", false);
+        sharedPreferenceEditor.commit();
     }
 
 
@@ -218,6 +223,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void rollTwice(View view) {
         isOneRollTriggered = false;
+        updateDieSizeAsNumber();
+        updatePreviousValues();
         // show toast message when user does not enter any value in edit text for custom die selection
         if(!isBasicDie && (diceSize.getText().toString().isEmpty() || diceSize.getText().toString().equals("0"))){
             Toast.makeText(this, "Enter valid dice size", Toast.LENGTH_SHORT).show();
@@ -232,8 +239,14 @@ public class MainActivity extends AppCompatActivity {
         resultTextView2ForTwoRoll.setText(secondRoll);
     }
 
+    /**
+     * Below method is to roll the die and show the result
+     * @param view
+     */
     private void rollOnce(View view) {
         isOneRollTriggered = true;
+        updateDieSizeAsNumber();
+        updatePreviousValues();
         // show toast message when user does not enter any value in edit text for custom die selection
         if(!isBasicDie && (diceSize.getText().toString().isEmpty() || diceSize.getText().toString().equals("0"))){
             Toast.makeText(this, "Enter valid dice size", Toast.LENGTH_SHORT).show();
@@ -244,6 +257,19 @@ public class MainActivity extends AppCompatActivity {
         diceImage.setVisibility(View.INVISIBLE);
         String rollResult = isBasicDie ? calculateResult() : calculateCustomResult();
         resultTextView.setText(rollResult);
+    }
+
+    /**
+     * updates the previous values when ever user clicks on roll button
+     */
+    private void updatePreviousValues() {
+        if(!isBasicDie){
+            if(previousValues.getText().toString().isEmpty()){
+                previousValues.setText(String.format("%s", diceSize.getText().toString()));
+            }else{
+                previousValues.setText(String.format("%s,%s", previousValues.getText(), diceSize.getText().toString()));
+            }
+        }
     }
 
     /**
@@ -297,5 +323,19 @@ public class MainActivity extends AppCompatActivity {
      */
     public int rollDice(int value) {
         return (int) (Math.floor(Math.random() * (value)) + 1);
+    }
+
+    /**
+     * This method converts provided input as proper number
+     * when user does not enter anything it considers that as 0
+     * for example if user enters input as 09 it auto updates that as 9
+     */
+    public void updateDieSizeAsNumber(){
+        if(diceSize.getText().toString().isEmpty()){
+            diceSize.setText("0");
+        }else{
+            diceSize.setText(String.valueOf(Integer.parseInt(diceSize.getText().toString())));
+        }
+
     }
 }
