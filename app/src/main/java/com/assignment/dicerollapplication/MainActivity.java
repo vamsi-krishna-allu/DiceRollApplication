@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     Switch switchToggle;
     TextView dieSelectionTextView;
 
+    private final String SELECTION = "selection";
+    private final String PREVIOUS_VALUE = "previousValues";
+    private final String CURRENT_ENTERED_VALUE = "currentEnteredValue";
+    private final String DIE_MODE = "dieMode";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedType = i;
                 // update the selected value in shared preferences
                 SharedPreferences.Editor sharedPreferenceEditor = sharedPreferences.edit();
-                sharedPreferenceEditor.putInt("selection", selectedType);
+                sharedPreferenceEditor.putInt(SELECTION, selectedType);
                 sharedPreferenceEditor.commit();
             }
 
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 spinner.setVisibility(View.VISIBLE);
             }
             SharedPreferences.Editor sharedPreferenceEditor = sharedPreferences.edit();
-            sharedPreferenceEditor.putBoolean("dieMode", isChecked);
+            sharedPreferenceEditor.putBoolean(DIE_MODE, isChecked);
             sharedPreferenceEditor.commit();
         });
 
@@ -124,10 +128,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private void updateUsingSharedPreferences() {
         sharedPreferences = getSharedPreferences("myPreferences",MODE_PRIVATE);
-        spinner.setSelection(sharedPreferences.getInt("selection", 0));
-        previousValues.setText(sharedPreferences.getString("previousValues",""));
-        diceSize.setText(sharedPreferences.getString("currentEnteredValue","0"));
-        switchToggle.setChecked(sharedPreferences.getBoolean("dieMode", false));
+        spinner.setSelection(sharedPreferences.getInt(SELECTION, 0));
+        previousValues.setText(sharedPreferences.getString(PREVIOUS_VALUE,""));
+        diceSize.setText(sharedPreferences.getString(CURRENT_ENTERED_VALUE,"0"));
+        switchToggle.setChecked(sharedPreferences.getBoolean(DIE_MODE, false));
     }
 
     /**
@@ -183,8 +187,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // Update the shared preferences with the die roll results
                 SharedPreferences.Editor sharedPreferenceEditor = sharedPreferences.edit();
-                sharedPreferenceEditor.putString("previousValues", previousValues.getText().toString());
-                sharedPreferenceEditor.putString("currentEnteredValue", diceSize.getText().toString());
+                sharedPreferenceEditor.putString(PREVIOUS_VALUE, previousValues.getText().toString());
+                sharedPreferenceEditor.putString(CURRENT_ENTERED_VALUE, diceSize.getText().toString());
                 sharedPreferenceEditor.commit();
 
             }
@@ -209,10 +213,10 @@ public class MainActivity extends AppCompatActivity {
         resultTextView2ForTwoRoll.setText("0");
         switchToggle.setChecked(false);
         SharedPreferences.Editor sharedPreferenceEditor = sharedPreferences.edit();
-        sharedPreferenceEditor.putString("previousValues", previousValues.getText().toString());
-        sharedPreferenceEditor.putString("currentEnteredValue", diceSize.getText().toString());
-        sharedPreferenceEditor.putInt("selection", 0);
-        sharedPreferenceEditor.putBoolean("dieMode", false);
+        sharedPreferenceEditor.putString(PREVIOUS_VALUE, previousValues.getText().toString());
+        sharedPreferenceEditor.putString(CURRENT_ENTERED_VALUE, diceSize.getText().toString());
+        sharedPreferenceEditor.putInt(SELECTION, 0);
+        sharedPreferenceEditor.putBoolean(DIE_MODE, false);
         sharedPreferenceEditor.commit();
     }
 
@@ -267,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
             if(previousValues.getText().toString().isEmpty()){
                 previousValues.setText(String.format("%s", diceSize.getText().toString()));
             }else{
-                previousValues.setText(String.format("%s,%s", previousValues.getText(), diceSize.getText().toString()));
+                previousValues.setText(String.format("%s, %s", previousValues.getText(), diceSize.getText().toString()));
             }
         }
     }
