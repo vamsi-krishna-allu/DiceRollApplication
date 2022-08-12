@@ -3,6 +3,7 @@
 <resources>
     <!-- minimum and maximum font sizes used-->
     <dimen name="smallFontSize">24sp</dimen>
+    <dimen name="middleFontSize">34sp</dimen>
     <dimen name="mediumFontSize">48sp</dimen>
     <dimen name="largeFontSize">96sp</dimen>
     <dimen name="minimumValue">0dp</dimen>
@@ -35,5 +36,11 @@
     <dimen name="switch_minHeight">48dp</dimen>
     <dimen name="switch_minWidth">48dp</dimen>
     <dimen name="switch_marginTop">20dp</dimen>
-
+    <!-- result text view dimensions-->
+    <dimen name="result_textview_width">130dp</dimen>
+    <dimen name="result_textview_weight">1</dimen>
+    <!-- switch dimensions-->
+    <dimen name="previousValue_width">365dp</dimen>
+    <dimen name="previousValue_height">74dp</dimen>
+    <dimen name="previousValue_marginStart">16dp</dimen>
 </resources>

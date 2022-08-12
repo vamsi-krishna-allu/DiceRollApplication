@@ -87,12 +87,8 @@
 
             <TextView
                 android:id="@+id/previousValueTextView"
-                android:layout_width="365dp"
-                android:layout_height="74dp"
-                android:layout_marginStart="16dp"
+                style="@style/previousValueStyles"
                 android:scrollbars="vertical"
-                android:textColor="@color/blue"
-                android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -125,32 +121,23 @@
 
                     <TextView
                         android:id="@+id/resultTextView1ForTwoRoll"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        style="@style/resultTextViewStyles"
                         android:text="@string/zero"
                         android:textAlignment="center"
-                        android:textSize="@dimen/largeFontSize"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/resultTextView"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        style="@style/resultTextViewStyles"
                         android:text="@string/zero"
                         android:textAlignment="center"
-                        android:textSize="@dimen/largeFontSize"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/resultTextView2ForTwoRoll"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        style="@style/resultTextViewStyles"
                         android:text="@string/zero"
                         android:textAlignment="center"
-                        android:textSize="@dimen/largeFontSize"
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

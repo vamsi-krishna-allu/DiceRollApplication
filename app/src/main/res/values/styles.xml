@@ -13,6 +13,8 @@
         <item name="android:textStyle">bold</item>
         <item name="android:backgroundTint">@color/green</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:insetTop">@dimen/minimumValue</item>
+        <item name="android:insetBottom">@dimen/minimumValue</item>
     </style>
 
     <!-- common styles used for spinner-->
@@ -58,5 +60,22 @@
         <item name="android:layout_width">@dimen/edittext_width</item>
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">@dimen/mediumFontSize</item>
+    </style>
+
+    <!-- common style used for  previous values-->
+    <style name="previousValueStyles">
+        <item name="android:layout_marginStart">@dimen/previousValue_marginStart</item>
+        <item name="android:layout_height">@dimen/previousValue_height</item>
+        <item name="android:layout_width">@dimen/previousValue_width</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/middleFontSize</item>
+    </style>
+
+    <!-- common style used for result text-->
+    <style name="resultTextViewStyles">
+        <item name="android:layout_weight">@dimen/result_textview_weight</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">@dimen/result_textview_width</item>
+        <item name="android:textSize">@dimen/largeFontSize</item>
     </style>
 </resources>
