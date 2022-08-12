@@ -1,8 +1,22 @@
 <resources>
     <string name="app_name">DiceRollApplication</string>
+    <string name="clear_all">Clear All</string>
+    <string name="roll_twice">ROLL TWICE</string>
+    <string name="roll_once">ROLL ONCE</string>
+    <string name="zero">0</string>
+    <string name="basic_die_selected">Basic Die Selected</string>
+    <string name="custom_die_selected">Custom Die Selected</string>
+    <string name="spinner">spinner to select dice type</string>
+    <string name="dice_place_holder">Enter size</string>
+    <string name="previous_values">Previous Values</string>
     <string-array name="dice_types">
-        <item>Basic size Die</item>
+        <item>Four sided Die</item>
+        <item>Six sided Die</item>
+        <item>Eight sided Die</item>
         <item>Ten sided Die</item>
+        <item>Twelve sided Die</item>
+        <item>Twenty sided Die</item>
+        <item>Ten sided Die (10s)</item>
         <item>True Ten sided Die</item>
     </string-array>
 </resources>

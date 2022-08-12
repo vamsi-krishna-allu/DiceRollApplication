@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- below are the possible dimensions that are used in code -->
+<resources>
+    <!-- minimum and maximum font sizes used-->
+    <dimen name="smallFontSize">24sp</dimen>
+    <dimen name="mediumFontSize">48sp</dimen>
+    <dimen name="largeFontSize">96sp</dimen>
+    <dimen name="minimumValue">0dp</dimen>
+    <!-- minimum and maximum height used-->
+    <dimen name="minimumHeight">40dp</dimen>
+    <dimen name="maximumHeight">173dp</dimen>
+    <!-- spinner dimensions-->
+    <dimen name="spinner_width">395dp</dimen>
+    <dimen name="spinner_height">48dp</dimen>
+    <dimen name="spinner_marginStart">6dp</dimen>
+    <dimen name="spinner_marginTop">95dp</dimen>
+    <dimen name="spinner_padding">8dp</dimen>
+    <!-- button dimensions-->
+    <dimen name="button_margin">56dp</dimen>
+    <dimen name="button_marginBottom">228dp</dimen>
+    <!-- image view dimensions-->
+    <dimen name="image_view_width">182dp</dimen>
+    <dimen name="image_view_height">158dp</dimen>
+    <dimen name="image_view_margin">20dp</dimen>
+    <!-- clear button dimensions-->
+    <dimen name="clear_button_marginStart">20dp</dimen>
+    <dimen name="clear_button_marginEnd">30dp</dimen>
+    <dimen name="clear_button_width">339dp</dimen>
+    <!-- edit text dimensions-->
+    <dimen name="edittext_marginBottom">4dp</dimen>
+    <dimen name="edittext_height">68dp</dimen>
+    <dimen name="edittext_width">362dp</dimen>
+    <!-- switch dimensions-->
+    <dimen name="switch_marginStart">180dp</dimen>
+    <dimen name="switch_minHeight">48dp</dimen>
+    <dimen name="switch_minWidth">48dp</dimen>
+    <dimen name="switch_marginTop">20dp</dimen>
+
+</resources>

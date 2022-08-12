@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- default custom styles used for all text views-->
+    <style name="defaultCustomTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">@dimen/minimumValue</item>
+        <item name="android:textColor">@color/orange</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- common styles used for all buttons-->
+    <style name="customButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/yellow</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:insetTop">@dimen/minimumValue</item>
+        <item name="android:insetBottom">@dimen/minimumValue</item>
+    </style>
+
+    <!-- common styles used for spinner-->
+    <style name="customSpinner" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:background">@color/yellow</item>
+        <item name="android:textSize">@dimen/smallFontSize</item>
+    </style>
+
+    <!-- styles used for image view-->
+    <style name="imageViewStyles" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">@dimen/image_view_width</item>
+        <item name="android:layout_height">@dimen/image_view_height</item>
+        <item name="android:layout_margin">@dimen/image_view_margin</item>
+    </style>
+
+    <!-- styles used for image view-->
+    <style name="clearButtonStyles" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:backgroundTint">@color/yellow</item>
+        <item name="android:layout_height">@dimen/minimumValue</item>
+        <item name="android:layout_width">@dimen/clear_button_width</item>
+        <item name="android:layout_marginStart">@dimen/clear_button_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/clear_button_marginEnd</item>
+    </style>
+
+    <!-- common style and theme used for switch-->
+    <style name="customSwitch">
+        <item name="android:colorControlActivated">@color/blue</item>
+    </style>
+
+    <style name="customSwitchStyles">
+        <item name="android:layout_marginStart">@dimen/switch_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/switch_marginTop</item>
+        <item name="android:minWidth">@dimen/switch_minWidth</item>
+        <item name="android:minHeight">@dimen/switch_minWidth</item>
+    </style>
+
+    <!-- common style used for edit text-->
+    <style name="editTextStyles">
+        <item name="android:layout_marginBottom">@dimen/edittext_marginBottom</item>
+        <item name="android:layout_height">@dimen/edittext_height</item>
+        <item name="android:layout_width">@dimen/edittext_width</item>
+        <item name="android:textColor">@color/orange</item>
+        <item name="android:textSize">@dimen/mediumFontSize</item>
+    </style>
+
+</resources>
